@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<title>Find GPS coordinates on Google maps | Latitude Longitude Search</title>
+<meta name="description" content="Find gps coordinates on Google maps with latitude longitude search. Latitude and Longitude on a map to get gps coordinates. Share location on Google maps" />
+<meta name="keywords" content="GPS, GPS latitude and longitude, latitude and longitude finder, maps, lat, long, my, finder, search" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="verify-v1" content="bA0/t1OlfVVSJ9S9VzSMLG0Q5q+tVVu1GVujXTU72Cc=" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="index,follow" />
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://www.maps.ie/assets/css/img/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://www.maps.ie/assets/css/img/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://www.maps.ie/assets/css/img/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.maps.ie/assets/css/img/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="https://www.maps.ie/assets/css/img/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://www.maps.ie/assets/css/img/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://www.maps.ie/assets/css/img/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://www.maps.ie/assets/css/img/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="https://www.maps.ie/assets/css/img/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="https://www.maps.ie/assets/css/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="https://www.maps.ie/assets/css/img/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="https://www.maps.ie/assets/css/img/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="https://www.maps.ie/assets/css/img/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="&nbsp;" />
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="/assets/css/img/mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="/assets/css/img/mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="/assets/css/img/mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="/assets/css/img/mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="/assets/css/img/mstile-310x310.png" />
+<link rel="stylesheet" href="https://www.maps.ie/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://www.maps.ie/assets/css/fonts.css" />
+<link rel="stylesheet" href="https://www.maps.ie/assets/css/leaflet-1.6.0.css" />
+<link rel="stylesheet" href="https://www.maps.ie/assets/css/typeaheadjs.css" />
+<link rel="stylesheet" href="https://www.maps.ie/assets/css/main.css" />
+<link rel="stylesheet" href="https://www.maps.ie/assets/css/responsive.css" />
+
+<!--[if lt IE 9]>  <script src="assets/js/html5shiv.js"></script>  <![endif]-->
+<script type="text/javascript" src="https://www.maps.ie/assets/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://www.maps.ie/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.maps.ie/assets/js/leaflet-1.6.0.js"></script>
+<script src="https://www.maps.ie/assets/js/esri-leaflet-2.4.0.js"></script>
+<script src="https://www.maps.ie/assets/js/typeahead.bundle.js"></script>
+<script src="https://www.maps.ie/assets/js/typeahead-address-photon.min.js"></script>
+<script src="https://www.maps.ie/assets/js/url-search-params.js"></script>
+<script type="text/javascript" src="https://www.maps.ie/coordinates/js/map.js"></script>
+<script type="text/javascript" src="https://www.maps.ie/assets/js/main.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-3593449959602413",
+            enable_page_level_ads: true
+        });
+    </script>
+<style>
+        #latlongmap {
+            height: 500px;
+            width: 100%
+        }
+
+        .result-list {
+            list-style: none;
+            display: block;
+            padding: 0;
+        }
+
+        .result-list li {
+            background-color: #fff;
+            border-left: 1px solid #999;
+            border-right: 1px solid #999;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .result-list li:last-of-type {
+            border-bottom: 1px solid #999;
+        }
+
+        .result-list li a {
+            width: 100%;
+            display: block;
+        }
+
+        #street_address.loading {
+            width: 100%;
+            line-height: 26px;
+            background-image: url(assets/css/img/loading.gif) !important;
+            background-repeat: no-repeat;
+            background-position: 3px center;
+            padding-left: 32px;
+        }
+
+        .tt-menu {
+            z-index: 9999 !important;
+        }
+
+        .tt-hint {
+            width: 100%;
+            line-height: 25px;
+        }
+
+        .googleMap_infowindow {
+            height: 152px;
+            width: 245px;
+        }
+    </style>
+</head>
+<body class="frontend">
+<div class="body">
+<header>
+<div class="container">
+<div class="col-md-3">
+<a href="https://www.maps.ie/" id="logo-container">
+<img src="https://www.maps.ie/assets/css/img/maps-ie-logo.png" alt="map of Ireland" />
+</a>
+</div>
+<div class="col-md-9">
+<div id="top-banner">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-3593449959602413" data-ad-slot="1189551273"></ins>
+<script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+</div>
+</div>
+</div>
+<nav id="main-nav" class="navbar" role="navigation">
+<div class="container">
+<div class="col-md-12">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav-ul">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<div class="search-wrapper">
+<span class="search_box"></span>
+<div class="search_content">
+<div class="search_box_container">
+<div class="search_close"></div>
+<script>
+                                            (function () {
+                                                var cx = '008629953991828637622:htwm-xl9erm';
+                                                var gcse = document.createElement('script');
+                                                gcse.type = 'text/javascript';
+                                                gcse.async = true;
+                                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                                var s = document.getElementsByTagName('script')[0];
+                                                s.parentNode.insertBefore(gcse, s);
+                                            })();
+                                        </script>
+<gcse:search></gcse:search>
+</div>
+</div>
+</div>
+</div>
+<div class="collapse navbar-collapse" id="main-nav-ul">
+<ul class="nav navbar-nav" aria-expanded="false">
+<li>
+<a href="https://www.maps.ie/" title="map of ireland">Home</a>
+<span class="line"></span>
+</li>
+<li class="dropdown">
+<a href="coordinates.html#" data-toggle="dropdown" class="dropdown-toggle">
+Distance/Area
+<span class="caret"></span>
+</a>
+<span class="line"></span>
+<ul class="dropdown-menu">
+<a href="https://www.maps.ie/distance-area-calculator.html" title="measure area/distance">
+<li>Distance/Area Map</li>
+</a>
+<a href="https://www.maps.ie/draw-radius-circle-map/" title="measure map radius">
+<li>Radius Map</li>
+</a>
+</ul>
+</li>
+<li>
+<a href="https://www.maps.ie/population/" title="population">Population</a>
+<span class="line"></span>
+</li>
+<li class="active">
+<a href="coordinates.html" title="google map coordinates">Coordinates</a>
+<span class="line"></span>
+</li>
+<li>
+<a href="https://www.maps.ie/route-planner.htm" title="route planner ireland">Route Planner</a>
+<span class="line"></span>
+</li>
+<li class="last"> <a href="https://www.maps.ie/map-my-route/" title="Map a route on Google Maps">Map My
+Route</a>
+<span class="line"></span>
+</li>
+<li class="last">
+<a href="https://www.maps.ie/create-google-map/" title="Create google map">Create a Map</a>
+<span class="line"></span>
+</li>
+<li class="dropdown">
+<a href="coordinates.html#" data-toggle="dropdown" class="dropdown-toggle">
+Ireland
+<span class="caret"></span>
+</a>
+<span class="line"></span>
+<ul class="dropdown-menu">
+<a href="https://www.maps.ie/dublin-city.htm" title="Dublin Map">
+<li>Dublin</li>
+</a>
+<a href="https://www.maps.ie/belfast-city.htm" title="Belfast Map">
+<li>Belfast</li>
+</a>
+<a href="https://www.maps.ie/cork-city.htm" title="Cork Map">
+<li>Cork</li>
+</a>
+<a href="https://www.maps.ie/galway-city.htm" title="Galway Map">
+<li>Galway</li>
+</a>
+<a href="https://www.maps.ie/limerick-city.htm" title="Limerick Map">
+<li>Limerick</li>
+</a>
+<a href="https://www.maps.ie/waterford-city.htm" title="Waterford Map">
+<li>Waterford</li>
+</a>
+<a href="https://www.maps.ie/kilkenny-city.htm" title="Kilkenny Map">
+<li>Kilkenny</li>
+</a>
+<a href="https://www.maps.ie/derry-city.htm" title="Derry Map">
+<li>Derry</li>
+</a>
+<a href="https://www.maps.ie/irish-national-parks.htm" title="National Parks of Ireland">
+<li>National Parks</li>
+</a>
+<a href="https://www.maps.ie/irish-heritage-sites.htm" title="Heritage Sites of Ireland">
+<li>Heritage Sites</li>
+</a>
+<a href="https://www.maps.ie/irelands-islands.htm" title="Islands of Ireland">
+<li>Irish Islands</li>
+</a>
+<a href="https://www.maps.ie/mountaineering-map-ireland.htm" title="Irish Mountaineering map">
+<li>Mountaineering</li>
+</a>
+<a href="https://www.maps.ie/surf-map-ireland.htm" title="Ireland Surfing map">
+<li>Surfing</li>
+</a>
+<a href="https://www.maps.ie/windsurfing-map-ireland.htm" title="Ireland Windsurfing map">
+<li>Windsurfing</li>
+</a>
+</ul>
+</li>
+<li class="search_box"></li>
+<li class="search_content">
+<div class="search_box_container">
+<div class="search_close"></div>
+<script>
+                                            (function () {
+                                                var cx = '008629953991828637622:htwm-xl9erm';
+                                                var gcse = document.createElement('script');
+                                                gcse.type = 'text/javascript';
+                                                gcse.async = true;
+                                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                                var s = document.getElementsByTagName('script')[0];
+                                                s.parentNode.insertBefore(gcse, s);
+                                            })();
+                                        </script>
+<gcse:search></gcse:search>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="content">
+<section class="container clearfix">
+<div class="row">
+<div class="col-md-8">
+<h1>Find GPS Coordinates on Google maps</h1>
+<p>To find the exact GPS latitude and longitude coordinates of a point on google maps along with
+the altitude/elevation above sea level, simply drag the marker in the map below to the point
+you require. Alternatively enter the location name in the search bar then drag the resulting
+marker to the precise position. The GPS coordinates including latitude and longitude along
+with the altitude/elevation will automatically update in the <a href="https://www.maps.ie/create-google-map/" title="Create Google Map">Google map</a> pop-up. Use the map zoom controls to get a
+closer view of the point you require. Alternatively to show the coordinates of your current
+location use the <strong>Find My Coordinates</strong> button below. Your coordinates will
+update on the map.
+<p>You can also share your location on this map using the <strong>Send this location</strong>
+button below your GPS coordinates in the map info window. This will create an email with a
+link to your location on Google maps to share your location with another person.</p>
+<p style="margin-top: 25px; margin-bottom: 25px"><input id="find-loc" type="button" class="submitOn" value="Find My Coordinates" onclick="getLocation();" /></p>
+</div>
+<div class="col-md-4">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins style="display:block" class="adsbygoogle" data-ad-client="ca-pub-3593449959602413" data-ad-slot="7537262073" data-ad-format="auto"></ins>
+<script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+</div>
+</div>
+</section>
+<section class="container clearfix">
+<div id="map_container" class="clearfix">
+<div id="search_street_container" class="col-md-12">
+<input type="hidden" class="options" value="{'coordinates':'53.2734;-7.77832031','latitude':'53.2734','longitude':'-7.77832031','zoom_properties':0,'zoom':7,'height':500,'width':900,'scale':1,'satelite':1,'overview':1,'routing':1,'markers':[{'latitude':'53.2734','longitude':'-7.77832031','draggable':true}],'language':{'moveInfo':'Drag marker to required location.','lat':'Latitude','lng':'Longitude','seaHeight':'Sea level'}}" />
+<form id="frm_show_address" name="frm_show_address" action="coordinates.html#" class="fromAddress printHidden row">
+<div class="col-md-12" style="padding-right: 15px">
+<input id="street_address" name="street_address" type="text" class="textBefore vpsClearOnFocus" placeholder="House number, Street, City etc..." autocomplete="off" />
+<div id="results"></div>
+</div>
+
+
+
+
+</form>
+
+</div>
+<div id="latlongmap"></div>
+<div class="mapDir"></div>
+</div>
+</section>
+<section class="container clearfix" style="margin-top: 10px">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3593449959602413" data-ad-slot="8299926891" data-ad-format="auto"></ins>
+<script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+</section>
+</div>
+<footer>
+<div class="container clearfix">
+<div class="footer-col col-md-15 col-sm-4">
+<h4 class="footer-heading">About Us</h4>
+<ul class="footer-links">
+<li>
+<a href="https://www.maps.ie/contact-us.htm" title="Contact Us" rel="nofollow">Contact Us</a>
+</li>
+<li>
+<a href="https://www.maps.ie/about-us.htm" title="About Us" rel="nofollow">About Us</a>
+</li>
+<li>
+<a href="http://blog.maps.ie/" title="Maps.ie Blog" rel="nofollow">Blog</a>
+</li>
+<li>
+<a href="https://www.maps.ie/site-map.htm" title="Sitemap" rel="nofollow">Sitemap</a>
+</li>
+</ul>
+</div>
+<div class="footer-col col-md-15 col-sm-4">
+<h4 class="footer-heading">City Maps</h4>
+<ul class="footer-links">
+<li>
+<a href="https://www.maps.ie/dublin-city.htm" title="Dublin Map" rel="nofollow">Dublin Map</a>
+</li>
+<li>
+<a href="https://www.maps.ie/belfast-city.htm" title="Belfast Map" rel="nofollow">Belfast Map</a>
+</li>
+<li>
+<a href="https://www.maps.ie/cork-city.htm" title="Cork Map" rel="nofollow">Cork Map</a>
+</li>
+<li>
+<a href="https://www.maps.ie/galway-city.htm" title="Galway Map" rel="nofollow">Galway Map</a>
+</li>
+<li>
+<a href="https://www.maps.ie/limerick-city.htm" title="Limerick Map" rel="nofollow">Limerick Map</a>
+</li>
+<li>
+<a href="https://www.maps.ie/waterford-city.htm" title="Waterford Map" rel="nofollow">Waterford Map</a>
+</li>
+<li>
+<a href="https://www.maps.ie/kilkenny-city.htm" title="Kilkenny Map" rel="nofollow">Kilkenny Map</a>
+</li>
+<li>
+<a href="https://www.maps.ie/derry-city.htm" title="Derry Map" rel="nofollow">Derry Map</a>
+</li>
+</ul>
+</div>
+<div class="footer-col col-md-15 col-sm-4">
+<h4 class="footer-heading">Mapping Tools</h4>
+<ul class="footer-links">
+<li>
+<a href="https://www.maps.ie/route-planner.htm" title="Google Route Planner" rel="nofollow">Route Planner</a>
+</li>
+<li>
+<a href="https://www.maps.ie/distance-area-calculator.html" title="Measure Distance / Area on Google map" rel="nofollow">Measure Distance / Area</a>
+</li>
+<li>
+<a href="https://www.maps.ie/draw-radius-circle-map/" title="Measure Google Map Radius" rel="nofollow">Radius
+Map</a>
+</li>
+<li>
+<a href="coordinates.html" title="GPS Coordinates Google map" rel="nofollow">GPS
+Coordinates</a>
+</li>
+<li>
+<a href="https://www.maps.ie/map-my-route/" title="Map a route on Google map" rel="nofollow">Map a Route</a>
+</li>
+<li>
+<a href="https://www.maps.ie/create-google-map/" title="Create google map" rel="nofollow">Create a Map</a>
+</li>
+<li>
+<a href="https://www.maps.ie/population/" title="Find population on map" rel="nofollow">World Population
+Map</a>
+</li>
+</ul>
+</div>
+<div class="footer-col col-md-15 col-sm-4">
+<h4 class="footer-heading">Activities & Attractions</h4>
+<ul class="footer-links">
+<li>
+<a href="https://www.maps.ie/irish-national-parks.htm" title="Ireland National Parks map" rel="nofollow">National Parks</a>
+</li>
+<li>
+<a href="https://www.maps.ie/irish-heritage-sites.htm" title="Ireland Heritage Sites map" rel="nofollow">Heritage Sites</a>
+</li>
+<li>
+<a href="https://www.maps.ie/irelands-islands.htm" title="Map of Irelands Islands" rel="nofollow">Irelands
+Islands</a>
+</li>
+<li>
+<a href="https://www.maps.ie/mountaineering-map-ireland.htm" title="Irish Mountaineering map" rel="nofollow">Mountaineering</a>
+</li>
+<li>
+<a href="https://www.maps.ie/surf-map-ireland.htm" title="Ireland Surfing map" rel="nofollow">Surfing</a>
+</li>
+<li>
+<a href="https://www.maps.ie/windsurfing-map-ireland.htm" title="Ireland Windsurfing map" rel="nofollow">Windsurfing</a>
+</li>
+</ul>
+</div>
+<div class="footer-col last col-md-15 col-sm-4">
+<h4 class="footer-heading">Partners</h4>
+<ul class="footer-links">
+<li>
+<a href="https://www.galwaytourism.ie/" title="Galway Tourism">Galway Tourism</a>
+</li>
+<li>
+<a href="https://www.southeastireland.com/" title="South East Ireland">South East
+Ireland</a>
+</li>
+<li>
+<a href="https://www.irelandnorthwest.ie/" title="North West Ireland">North West Ireland</a>
+</li>
+<li>
+<a href="http://www.gps.ie/gps-lat-long-finder.htm">GPS Ireland</a>
+</li>
+<li><a href="https://www.mapsdirections.info/coordenadas-de-googlemaps.html" title="Buscar Coordenadas Google GPS">Buscar Coordenadas GPS</a>
+</li>
+</ul>
+</div>
+</div>
+<div id="footer-bottom">
+<div class="container clearfix">
+<div id="footer-copyright" class="col-md-6 col-xs-12">
+2023 © Maps.ie. All rights reserved.
+</div>
+<div id="footer-bottom-menu" class="col-md-6 col-xs-12">
+<a class="fbottom-link" href="https://www.maps.ie/terms.htm" rel="nofollow">Terms of Use</a>
+<span class="fbottom-divider">|</span>
+<a class="fbottom-link" href="https://www.maps.ie/cookies.htm" rel="nofollow">Cookies</a>
+<span class="fbottom-divider">|</span>
+<a class="fbottom-link" href="https://www.maps.ie/contact-us.htm" rel="nofollow">Contact Us</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YWKBC2PS5T"></script>
+<script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-YWKBC2PS5T');
+    </script>
+<script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-2613916-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+<link rel="stylesheet" href="https://www.maps.ie/assets/css/L.Control.Locate.min.css" />
+<script type="text/javascript" src="https://www.maps.ie/assets/js/L.Control.Locate.min.js"></script>
+<script src="https://www.maps.ie/assets/js/Leaflet.fullscreen.min.js"></script>
+<link rel="stylesheet" href="https://www.maps.ie/assets/css/leaflet.fullscreen.css" />
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8b943e7a2e0a48ef',t:'MTcyNDY3OTczNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
